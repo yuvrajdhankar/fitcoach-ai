@@ -1,0 +1,376 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FitCoach AI | Dashboard</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="brand">
+      <div class="brand-mark">FC</div>
+      <div>
+        <h2>FitCoach AI</h2>
+        <p>Performance dashboard and virtual coach</p>
+      </div>
+    </div>
+    <div class="nav-links">
+      <button data-page="home.html" onclick="go('home.html')">Home</button>
+      <button data-page="dashboard.html" onclick="go('dashboard.html')">Dashboard</button>
+      <button data-page="workout.html" onclick="go('workout.html')">Workouts</button>
+      <button data-page="plan.html" onclick="go('plan.html')">AI Plan</button>
+      <button data-page="meal.html" onclick="go('meal.html')">Meals</button>
+      <button data-page="help.html" onclick="go('help.html')">Help</button>
+      <button class="btn-ghost" onclick="logout()">Logout</button>
+    </div>
+  </nav>
+
+  <main class="page">
+    <section class="hero">
+      <span class="eyebrow">Dashboard for <span id="userName">Athlete</span></span>
+      <h1 class="title">Your training, goals, meals, and coach signals in one clean workspace.</h1>
+      <p class="subtitle">This dashboard is now much closer to the pro-level references you shared: quick actions, summary cards, progress modules, recent activity tables, and goal tracking.</p>
+      <div class="quick-actions">
+        <button class="btn" onclick="go('workout.html')">Log workout</button>
+        <button class="btn-secondary" onclick="go('meal.html')">Log meal</button>
+        <button class="btn-ghost" onclick="go('plan.html')">Refresh AI plan</button>
+      </div>
+    </section>
+
+    <section class="quick-grid" style="margin-top: 20px;">
+      <article class="action-card" onclick="go('workout.html')">
+        <div class="action-icon">+</div>
+        <h3>Log Workout</h3>
+        <p>Add a gym or cardio session with volume, duration, intensity, and notes.</p>
+      </article>
+      <article class="action-card" onclick="go('plan.html')">
+        <div class="action-icon">AI</div>
+        <h3>Build AI Plan</h3>
+        <p>Generate a more structured weekly coaching plan based on your goal.</p>
+      </article>
+      <article class="action-card" onclick="go('meal.html')">
+        <div class="action-icon">ME</div>
+        <h3>Nutrition Check-In</h3>
+        <p>Generate a meal strategy and log food entries that show up on the dashboard.</p>
+      </article>
+      <article class="action-card" onclick="go('help.html')">
+        <div class="action-icon">?</div>
+        <h3>Recovery Guide</h3>
+        <p>Open support, gym starter help, recovery notes, and usage instructions.</p>
+      </article>
+    </section>
+
+    <section class="dashboard-grid" style="margin-top: 20px;">
+      <article class="stat-card">
+        <p class="stat-label">Total workouts</p>
+        <p class="stat-value" id="totalWorkouts">0</p>
+        <p class="stat-note">All sessions logged</p>
+      </article>
+      <article class="stat-card">
+        <p class="stat-label">Estimated calorie burn</p>
+        <p class="stat-value" id="calorieBurn">0 kcal</p>
+        <p class="stat-note">Training output</p>
+      </article>
+      <article class="stat-card">
+        <p class="stat-label">Active days</p>
+        <p class="stat-value" id="activeDays">0</p>
+        <p class="stat-note">Unique logged dates</p>
+      </article>
+      <article class="stat-card">
+        <p class="stat-label">Goals achieved</p>
+        <p class="stat-value" id="goalsAchieved">0/0</p>
+        <p class="stat-note">Milestones completed</p>
+      </article>
+    </section>
+
+    <section class="summary-grid" style="margin-top: 20px;">
+      <article class="stat-card">
+        <p class="stat-label">Cardio minutes</p>
+        <p class="stat-value" id="cardioMinutes">0 min</p>
+      </article>
+      <article class="stat-card">
+        <p class="stat-label">Strength volume</p>
+        <p class="stat-value" id="strengthVolume">0</p>
+      </article>
+      <article class="stat-card">
+        <p class="stat-label">Current streak</p>
+        <p class="stat-value" id="streak">0 days</p>
+      </article>
+      <article class="stat-card">
+        <p class="stat-label">Consistency score</p>
+        <p class="stat-value" id="consistencyScore">0%</p>
+      </article>
+    </section>
+
+    <section class="summary-grid" style="margin-top: 20px;">
+      <article class="stat-card">
+        <p class="stat-label">Profile completion</p>
+        <p class="stat-value" id="profileCompletion">0%</p>
+      </article>
+      <article class="stat-card">
+        <p class="stat-label">Scheduled sessions</p>
+        <p class="stat-value" id="scheduledCount">0</p>
+      </article>
+      <article class="stat-card" style="grid-column: span 2;">
+        <p class="stat-label">Next session</p>
+        <p class="stat-value" id="nextSession">No session planned</p>
+      </article>
+    </section>
+
+    <section class="chart-grid" style="margin-top: 20px;">
+      <div class="panel charts">
+        <h2 class="section-heading">7-day training trend</h2>
+        <p class="section-copy">Cardio minutes and strength volume are plotted together so the dashboard shows balance, not just activity count.</p>
+        <canvas id="chart"></canvas>
+      </div>
+      <div class="panel">
+        <h2 class="section-heading">Coach insights</h2>
+        <p class="section-copy">These notes respond to the actual workouts you have logged.</p>
+        <div id="insights" class="insight-grid"></div>
+      </div>
+    </section>
+
+    <section class="data-grid" style="margin-top: 20px;">
+      <div class="table-card">
+        <h2 class="section-heading">Recent workouts</h2>
+        <p class="section-copy">Latest sessions from your workout tracker.</p>
+        <div id="recentWorkouts"></div>
+      </div>
+      <div class="table-card">
+        <h2 class="section-heading">Recent meals</h2>
+        <p class="section-copy">Nutrition check-ins pulled from the meal tracker page.</p>
+        <div id="recentMeals"></div>
+      </div>
+    </section>
+
+    <section class="two-column" style="margin-top: 20px;">
+      <div class="panel">
+        <h2 class="section-heading">User profile setup</h2>
+        <p class="section-copy">This profile helps the app personalize coaching, scheduling, and progress context.</p>
+        <div id="profileSummary"></div>
+        <form id="profileForm" onsubmit="event.preventDefault(); saveProfileSetup();" style="margin-top: 18px;">
+          <div class="form-grid">
+            <div class="field full">
+              <label for="profileFullName">Full name</label>
+              <input id="profileFullName" type="text" placeholder="John Doe">
+            </div>
+            <div class="field">
+              <label for="profileAge">Age</label>
+              <input id="profileAge" type="number" min="10" placeholder="24">
+            </div>
+            <div class="field">
+              <label for="profileLevel">Fitness level</label>
+              <select id="profileLevel">
+                <option>Beginner</option>
+                <option selected>Intermediate</option>
+                <option>Advanced</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="profileHeight">Height (cm)</label>
+              <input id="profileHeight" type="number" min="100" placeholder="175">
+            </div>
+            <div class="field">
+              <label for="profileWeight">Weight (kg)</label>
+              <input id="profileWeight" type="number" min="20" placeholder="72">
+            </div>
+            <div class="field">
+              <label for="profileTrainingDays">Training days/week</label>
+              <input id="profileTrainingDays" type="number" min="1" max="7" placeholder="4">
+            </div>
+            <div class="field">
+              <label for="profileEquipment">Equipment</label>
+              <select id="profileEquipment">
+                <option>Gym</option>
+                <option>Home Gym</option>
+                <option>Bodyweight Only</option>
+              </select>
+            </div>
+            <div class="field full">
+              <label for="profileGoal">Primary goal</label>
+              <select id="profileGoal">
+                <option>Fat Loss</option>
+                <option>Muscle Gain</option>
+                <option>Performance</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-actions">
+            <button class="btn" type="submit">Save profile</button>
+          </div>
+          <p id="profileMessage" class="status-message"></p>
+        </form>
+      </div>
+
+      <div class="panel">
+        <h2 class="section-heading">AI coach chat</h2>
+        <p class="section-copy">This coach reads your saved profile, workouts, goals, and schedule to answer practical questions.</p>
+        <div id="coachMessages" class="chat-thread"></div>
+        <div class="form-grid" style="margin-top: 18px; grid-template-columns: 1fr auto;">
+          <div class="field">
+            <label for="coachInput">Ask your coach</label>
+            <input id="coachInput" type="text" placeholder="What should I train today? How is my progress?">
+          </div>
+          <div class="field" style="justify-content: flex-end;">
+            <label>&nbsp;</label>
+            <button class="btn-dark" type="button" onclick="sendCoachMessage()">Send</button>
+          </div>
+        </div>
+        <p id="coachMessageStatus" class="status-message"></p>
+      </div>
+    </section>
+
+    <section class="two-column" style="margin-top: 20px;">
+      <div class="panel">
+        <h2 class="section-heading">Calendar scheduling</h2>
+        <p class="section-copy">Plan your next week so the platform can coach around structure instead of only reacting to finished workouts.</p>
+        <form id="scheduleForm" onsubmit="event.preventDefault(); saveScheduleEntry();">
+          <div class="form-grid">
+            <div class="field full">
+              <label for="scheduleTitle">Session title</label>
+              <input id="scheduleTitle" type="text" placeholder="Upper Body Strength, Recovery Walk, HIIT Intervals">
+            </div>
+            <div class="field">
+              <label for="scheduleType">Session type</label>
+              <select id="scheduleType">
+                <option>Strength</option>
+                <option>Cardio</option>
+                <option>Mobility</option>
+                <option>Recovery</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="scheduleFocus">Focus</label>
+              <input id="scheduleFocus" type="text" placeholder="Upper Body, Full Body, Zone 2">
+            </div>
+            <div class="field">
+              <label for="scheduleDuration">Duration (min)</label>
+              <input id="scheduleDuration" type="number" min="10" placeholder="45">
+            </div>
+            <div class="field">
+              <label for="scheduleDate">Date</label>
+              <input id="scheduleDate" type="date">
+            </div>
+            <div class="field">
+              <label for="scheduleTime">Time</label>
+              <input id="scheduleTime" type="time">
+            </div>
+          </div>
+          <div class="form-actions">
+            <button class="btn" type="submit">Add to calendar</button>
+          </div>
+          <p id="scheduleMessage" class="status-message"></p>
+        </form>
+      </div>
+
+      <div class="panel">
+        <h2 class="section-heading">Weekly calendar</h2>
+        <p class="section-copy">Your current week is shown here as a lightweight planner.</p>
+        <div id="scheduleCalendar" class="calendar-grid"></div>
+      </div>
+    </section>
+
+    <section class="two-column" style="margin-top: 20px;">
+      <div class="panel">
+        <h2 class="section-heading">Add a fitness goal</h2>
+        <p class="section-copy">Track milestones like weight loss, weekly cardio, strength numbers, or flexibility habits.</p>
+        <form id="goalForm" onsubmit="event.preventDefault(); saveGoal();">
+          <div class="form-grid">
+            <div class="field full">
+              <label for="goalTitle">Goal title</label>
+              <input id="goalTitle" type="text" placeholder="Lose 5 kg, 100 cardio minutes, 50 push-ups">
+            </div>
+            <div class="field">
+              <label for="goalTarget">Target value</label>
+              <input id="goalTarget" type="number" min="1" placeholder="100">
+            </div>
+            <div class="field">
+              <label for="goalCurrent">Current value</label>
+              <input id="goalCurrent" type="number" min="0" placeholder="30">
+            </div>
+            <div class="field">
+              <label for="goalCategory">Category</label>
+              <select id="goalCategory">
+                <option>Weight Loss</option>
+                <option>Strength</option>
+                <option>Cardio</option>
+                <option>Flexibility</option>
+                <option>Performance</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="goalDate">Target date</label>
+              <input id="goalDate" type="date">
+            </div>
+          </div>
+          <div class="form-actions">
+            <button class="btn" type="submit">Add goal</button>
+          </div>
+          <p id="goalMessage" class="status-message"></p>
+        </form>
+      </div>
+      <div class="panel">
+        <h2 class="section-heading">Goal tracker</h2>
+        <p class="section-copy">Your saved milestones show progress and completion state like the dashboard examples you sent.</p>
+        <div id="goalList" class="goal-list"></div>
+      </div>
+    </section>
+
+    <section class="panel" style="margin-top: 20px;">
+      <h2 class="section-heading">Upcoming schedule</h2>
+      <p class="section-copy">These planned sessions are sorted by date so you can see what is coming next.</p>
+      <div id="scheduleList" class="list"></div>
+    </section>
+
+    <section class="resource-grid" style="margin-top: 20px;">
+      <article class="resource-card">
+        <h3>AI Coach</h3>
+        <p>Use the plan builder to generate weekly direction for fat loss, muscle gain, or performance.</p>
+      </article>
+      <article class="resource-card">
+        <h3>Community-ready structure</h3>
+        <p>Your dashboard now has the right product sections to grow into community, progress photos, and shared challenges later.</p>
+      </article>
+      <article class="resource-card">
+        <h3>Resources</h3>
+        <p>Open the help page for gym basics, recovery advice, and platform guidance.</p>
+      </article>
+      <article class="resource-card">
+        <h3>Weekly sessions</h3>
+        <p id="weeklySessions">0</p>
+      </article>
+    </section>
+
+    <section class="footer-panel">
+      <h2 class="section-heading">FitCoach AI platform</h2>
+      <div class="footer-grid">
+        <div>
+          <h3>Tracking</h3>
+          <p class="section-copy">Workouts, meals, and milestones feed your dashboard automatically.</p>
+        </div>
+        <div>
+          <h3>Coaching</h3>
+          <p class="section-copy">AI-inspired guidance is based on your goal, level, and training setup.</p>
+        </div>
+        <div>
+          <h3>Support</h3>
+          <p class="section-copy">Help content and recovery guidance make the platform feel complete.</p>
+          <p class="section-copy">
+            Gmail:
+            <a class="contact-link" href="mailto:yuvrajdhankar007@gmail.com">yuvrajdhankar007@gmail.com</a>
+          </p>
+          <p class="section-copy">
+            Instagram:
+            <a class="contact-link" href="https://instagram.com/yuvraj__dhankar" target="_blank" rel="noopener noreferrer">@yuvraj__dhankar</a>
+          </p>
+        </div>
+      </div>
+      <p class="footer-note">FitCoach AI is now styled and structured more like a professional light-mode fitness product.</p>
+    </section>
+  </main>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

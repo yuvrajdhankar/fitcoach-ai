@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FitCoach AI | AI Plan</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="brand">
+      <div class="brand-mark">FC</div>
+      <div>
+        <h2>FitCoach AI</h2>
+        <p>Structured virtual coaching</p>
+      </div>
+    </div>
+    <div class="nav-links">
+      <button data-page="home.html" onclick="go('home.html')">Home</button>
+      <button data-page="dashboard.html" onclick="go('dashboard.html')">Dashboard</button>
+      <button data-page="workout.html" onclick="go('workout.html')">Workouts</button>
+      <button data-page="plan.html" onclick="go('plan.html')">AI Plan</button>
+      <button data-page="meal.html" onclick="go('meal.html')">Meals</button>
+      <button data-page="help.html" onclick="go('help.html')">Help</button>
+      <button class="btn-ghost" onclick="logout()">Logout</button>
+    </div>
+  </nav>
+
+  <main class="page">
+    <section class="hero">
+      <span class="eyebrow">Virtual AI coaching</span>
+      <h1 class="title">Generate a weekly plan that matches your goal, level, schedule, and equipment.</h1>
+      <p class="subtitle">This is still rules-based on the front end, but it now looks and behaves much more like a polished coaching product.</p>
+    </section>
+
+    <section class="two-column" style="margin-top: 20px;">
+      <div class="coach-panel">
+        <h2 class="section-heading">Plan inputs</h2>
+        <p class="section-copy">These are the inputs your future AI system will use. For now, they generate a stronger structured plan.</p>
+        <div class="form-grid">
+          <div class="field">
+            <label for="goal">Goal</label>
+            <select id="goal">
+              <option>Fat Loss</option>
+              <option>Muscle Gain</option>
+              <option>Performance</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="level">Experience level</label>
+            <select id="level">
+              <option>Beginner</option>
+              <option>Intermediate</option>
+              <option>Advanced</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="daysPerWeek">Training days per week</label>
+            <input id="daysPerWeek" type="number" min="2" max="7" value="4">
+          </div>
+          <div class="field">
+            <label for="focus">Training focus</label>
+            <select id="focus">
+              <option>Balanced</option>
+              <option>Strength Bias</option>
+              <option>Cardio Bias</option>
+              <option>Recovery First</option>
+            </select>
+          </div>
+          <div class="field full">
+            <label for="equipment">Equipment access</label>
+            <select id="equipment">
+              <option>Gym</option>
+              <option>Home Gym</option>
+              <option>Bodyweight Only</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button class="btn" onclick="generatePlan()">Generate coaching plan</button>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2 class="section-heading">Generated plan</h2>
+        <p class="section-copy">Your latest generated plan stays saved locally so the page still feels persistent.</p>
+        <div id="result"></div>
+      </div>
+    </section>
+  </main>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

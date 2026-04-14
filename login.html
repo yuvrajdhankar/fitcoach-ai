@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FitCoach AI | Login</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="auth-page">
+  <main class="auth-shell">
+    <section class="auth-card">
+      <span class="eyebrow">AI fitness tracking and coaching</span>
+      <h1 class="title">Build your personal performance command center.</h1>
+      <p class="subtitle">
+        Track gym work, cardio, recovery, and guided plans in one premium fitness workspace.
+      </p>
+
+      <div class="form-grid" style="margin-top: 28px;">
+        
+        <div class="field full">
+          <label>Email</label>
+          <input id="email" type="email" placeholder="Enter email">
+        </div>
+
+        <div class="field">
+          <label>Password</label>
+          <input id="password" type="password" placeholder="Enter password">
+        </div>
+
+      </div>
+
+      <div class="form-actions">
+        <button class="btn" onclick="signup()">Sign Up</button>
+        <button class="btn" onclick="login()">Login</button>
+      </div>
+
+      <p id="loginMessage" class="status-message"></p>
+    </section>
+  </main>
+
+  <!-- IMPORTANT -->
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

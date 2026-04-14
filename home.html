@@ -1,0 +1,176 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FitCoach AI | Home</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="brand">
+      <div class="brand-mark">FC</div>
+      <div>
+        <h2>FitCoach AI</h2>
+        <p>AI fitness tracking and virtual coaching</p>
+      </div>
+    </div>
+    <div class="nav-links">
+      <button data-page="home.html" onclick="go('home.html')">Home</button>
+      <button data-page="dashboard.html" onclick="go('dashboard.html')">Dashboard</button>
+      <button data-page="workout.html" onclick="go('workout.html')">Workouts</button>
+      <button data-page="plan.html" onclick="go('plan.html')">AI Plan</button>
+      <button data-page="meal.html" onclick="go('meal.html')">Meals</button>
+      <button data-page="help.html" onclick="go('help.html')">Help</button>
+      <button class="btn-ghost" onclick="logout()">Logout</button>
+    </div>
+  </nav>
+
+  <main class="page">
+    <section class="hero">
+      <div class="hero-grid">
+        <div>
+          <span class="eyebrow">Welcome back, <span id="homeUserName">Athlete</span></span>
+          <h1 class="title">Build a pro-level fitness system with tracking, coaching, nutrition, and recovery in one place.</h1>
+          <p class="subtitle">The screenshots you shared point toward a more complete product, so this version adds the missing pieces: a lighter premium UI, dashboard summaries, goal tracking, meal check-ins, and guided support pages.</p>
+          <div class="hero-actions">
+            <button class="btn" onclick="go('dashboard.html')">Open dashboard</button>
+            <button class="btn-secondary" onclick="go('workout.html')">Log today's workout</button>
+            <button class="btn-ghost" onclick="go('help.html')">See how it works</button>
+          </div>
+        </div>
+        <div class="spotlight-card">
+          <span class="spotlight-badge">FitCoach Pro System</span>
+          <h2 class="section-heading">Train with more clarity. Recover with more intention.</h2>
+          <p class="section-copy">Your app now feels less like a single feature demo and more like a personal fitness operating system with connected workflows.</p>
+          <div class="note-grid">
+            <div class="split"><span>Workout + cardio tracking</span><span class="inline-icon">1</span></div>
+            <div class="split"><span>AI weekly plan generation</span><span class="inline-icon">2</span></div>
+            <div class="split"><span>Meal strategy + logging</span><span class="inline-icon">3</span></div>
+            <div class="split"><span>Goal milestones + support</span><span class="inline-icon">4</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="mini-stats" style="margin-top: 20px;">
+      <article class="stat-card">
+        <p class="stat-label">Total workouts</p>
+        <p class="stat-value" id="homeTotalWorkouts">0</p>
+        <span class="metric-trend">Live from your tracker</span>
+      </article>
+      <article class="stat-card">
+        <p class="stat-label">Estimated calorie burn</p>
+        <p class="stat-value" id="homeCalories">0 kcal</p>
+        <span class="metric-trend">Training output</span>
+      </article>
+      <article class="stat-card">
+        <p class="stat-label">Current streak</p>
+        <p class="stat-value" id="homeStreak">0 day streak</p>
+        <span class="metric-trend">Consistency signal</span>
+      </article>
+      <article class="stat-card">
+        <p class="stat-label">Meal check-ins</p>
+        <p class="stat-value" id="homeMeals">0</p>
+        <span class="metric-trend">Nutrition logs</span>
+      </article>
+    </section>
+
+    <section class="quick-grid" style="margin-top: 20px;">
+      <article class="action-card" onclick="go('workout.html')">
+        <div class="action-icon">W</div>
+        <h3>Workout tracker</h3>
+        <p>Log strength sessions and cardio with enough detail for real progress review.</p>
+      </article>
+      <article class="action-card" onclick="go('plan.html')">
+        <div class="action-icon">A</div>
+        <h3>AI coach plan</h3>
+        <p>Generate weekly direction based on goal, level, frequency, and equipment access.</p>
+      </article>
+      <article class="action-card" onclick="go('meal.html')">
+        <div class="action-icon">M</div>
+        <h3>Meal strategy</h3>
+        <p>Build a goal-aligned nutrition setup and keep lightweight meal check-ins.</p>
+      </article>
+      <article class="action-card" onclick="go('help.html')">
+        <div class="action-icon">H</div>
+        <h3>Help and recovery</h3>
+        <p>Use recovery guidance and platform help when you want the app to coach better.</p>
+      </article>
+    </section>
+
+    <section class="data-grid" style="margin-top: 20px;">
+      <div class="panel">
+        <h2 class="section-heading">Why this feels more pro now</h2>
+        <p class="section-copy">The strongest part of your idea is that it is not only a tracker. It combines training, planning, meals, and coaching. The redesign now communicates that clearly.</p>
+        <div class="feature-grid" style="grid-template-columns: 1fr; margin-top: 10px;">
+          <div class="feature-card">
+            <h3>Connected product flow</h3>
+            <p class="section-copy">Dashboard metrics, goal progress, workouts, and meal logs now support each other instead of living as isolated pages.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Cleaner premium direction</h3>
+            <p class="section-copy">The dark prototype has been replaced with a brighter SaaS-style dashboard inspired by the references you shared.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Built for future AI upgrades</h3>
+            <p class="section-copy">The interface now has the right structure for adding deeper personalization and backend logic later.</p>
+          </div>
+        </div>
+      </div>
+      <div class="panel">
+        <h2 class="section-heading">Today at a glance</h2>
+        <p class="section-copy">These quick links help the home page act more like a launchpad instead of just a welcome screen.</p>
+        <div class="goal-list">
+          <article class="resource-card">
+            <h3>Goal milestones</h3>
+            <p>Track personal goals in the dashboard and show how close you are to completion.</p>
+            <div class="card-meta"><span class="pill" id="homeGoalCount">0/0</span></div>
+          </article>
+          <article class="resource-card">
+            <h3>Profile setup</h3>
+            <p>Profile completion helps unlock better coaching and planning context.</p>
+            <div class="card-meta"><span class="pill" id="homeProfileCompletion">0%</span></div>
+          </article>
+          <article class="resource-card">
+            <h3>Next scheduled session</h3>
+            <p id="homeNextSession">No session planned</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="footer-panel">
+      <h2 class="section-heading">FitCoach AI platform areas</h2>
+      <div class="footer-grid">
+        <div>
+          <h3>Dashboard</h3>
+          <p class="section-copy">Overview metrics, trends, recent logs, and milestone progress.</p>
+        </div>
+        <div>
+          <h3>AI Coach</h3>
+          <p class="section-copy">Structured weekly plans for fat loss, muscle gain, or performance.</p>
+        </div>
+        <div>
+          <h3>Resources</h3>
+          <p class="section-copy">Recovery guidance, platform help, and support-ready content blocks.</p>
+        </div>
+        <div>
+          <h3>Help and Support</h3>
+          <p class="section-copy">
+            Gmail:
+            <a class="contact-link" href="mailto:yuvrajdhankar007@gmail.com">yuvrajdhankar007@gmail.com</a>
+          </p>
+          <p class="section-copy">
+            Instagram:
+            <a class="contact-link" href="https://instagram.com/yuvraj__dhankar" target="_blank" rel="noopener noreferrer">@yuvraj__dhankar</a>
+          </p>
+        </div>
+      </div>
+      <p class="footer-note">FitCoach AI is evolving into a complete fitness tracking and virtual coaching platform.</p>
+    </section>
+  </main>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
