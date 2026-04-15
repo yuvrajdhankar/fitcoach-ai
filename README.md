@@ -22,7 +22,7 @@
 
 ## 🚀 Live Demo
 
-(Add your deployed link here)
+(fitcoachh-ai.netlify.app)
 
 ## 📂 Project Structure
 
